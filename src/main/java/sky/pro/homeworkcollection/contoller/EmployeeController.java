@@ -8,6 +8,8 @@ import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeStorageIsFullException;
 import sky.pro.homeworkcollection.service.EmployeeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -25,7 +27,7 @@ public class EmployeeController {
         employeeService.addEmployee(name, lastName);
 
         return employee;
-     }
+    }
 
     @GetMapping("/contains")
     public Employee containsEmployee(@RequestParam("firstName") String name,
@@ -41,5 +43,10 @@ public class EmployeeController {
         Employee employee = new Employee(name, lastName);
         employeeService.removeEmployee(name, lastName);
         return employee;
+    }
+
+    @GetMapping
+    public List<Employee> allEmployee() {
+        return employeeService.allEmploeyy();
     }
 }

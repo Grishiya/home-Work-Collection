@@ -8,6 +8,7 @@ import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeStorageIsFullException;
 import sky.pro.homeworkcollection.service.EmployeeService;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -22,31 +23,37 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String name,
-                                @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(name, lastName);
-        employeeService.addEmployee(name, lastName);
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("salary") double salary,
+                                @RequestParam("department") int department) {
+        Employee employee = new Employee(name, lastName,salary,department);
+        employeeService.addEmployee(name, lastName,salary,department);
 
         return employee;
     }
 
     @GetMapping("/contains")
     public Employee containsEmployee(@RequestParam("firstName") String name,
-                                     @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(name, lastName);
+                                     @RequestParam("lastName") String lastName,
+                                     @RequestParam("salary") double salary,
+                                     @RequestParam("department") int department) {
+        Employee employee = new Employee(name, lastName,salary,department);
         employeeService.containsEmployee(name, lastName);
         return employee;
     }
 
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstName") String name,
-                                   @RequestParam("lastName") String lastName) {
-        Employee employee = new Employee(name, lastName);
+                                   @RequestParam("lastName") String lastName,
+                                   @RequestParam("salary") double salary,
+                                   @RequestParam("department") int department) {
+        Employee employee = new Employee(name, lastName,salary,department);
         employeeService.removeEmployee(name, lastName);
         return employee;
     }
 
     @GetMapping
-    public List<Employee> allEmployee() {
+    public Collection<Employee> allEmployee() {
         return employeeService.allEmploeyy();
     }
 }

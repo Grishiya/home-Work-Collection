@@ -6,55 +6,58 @@ import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
 import sky.pro.homeworkcollection.exception.EmployeeNotFoundException;
 import sky.pro.homeworkcollection.exception.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private List<Employee> employees;
-    private static final int EMPLOYEE_MAX_SIZE = 4;
+    private Map<String, Employee> employeeMap;
+
+
+
+
+    private static final int EMPLOYEE_MAX_SIZE = 3;
 
     public EmployeeServiceImpl() {
-        this.employees = new ArrayList<>();
-
+        this.employeeMap = new HashMap<>();
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
-        if (employees.size() == EMPLOYEE_MAX_SIZE) {
+    public Employee addEmployee(String firstName, String lastName, double salary, int department) {
+        String fullName=firstName+lastName;
+        if (employeeMap.keySet().size() == EMPLOYEE_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Закрыто");
         }
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.contains(employee)) {
+        Employee employee = new Employee(firstName, lastName,salary,department);
+        if (employeeMap.containsKey(fullName)) {
             throw new EmployeeAlreadyAddedException("ТЫ уже работаешь");
         }
-        employees.add(employee);
+
         return employee;
     }
 
 
     @Override
     public Employee containsEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
+        Employee employee =employeeMap.get(firstName+lastName);
+        if (!employeeMap.containsKey(firstName+lastName)) {
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
-        boolean contains = employees.contains(employee);
         return employee;
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = employeeMap.remove(firstName + lastName);
 
-        if (!employees.remove(employee)) {
+        if (!employeeMap.containsKey(firstName+lastName)){
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
-        employees.remove(employee);
+
         return employee;
     }
-@Override
-    public List<Employee> allEmploeyy() {
-        return employees;
+
+    @Override
+    public Collection <Employee> allEmploeyy() {
+        return employeeMap.values();
     }
 }

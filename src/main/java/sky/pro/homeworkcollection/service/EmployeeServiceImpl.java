@@ -13,8 +13,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Map<String, Employee> employeeMap;
 
 
-
-
     private static final int EMPLOYEE_MAX_SIZE = 3;
 
     public EmployeeServiceImpl() {
@@ -23,23 +21,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, double salary, int department) {
-        String fullName=firstName+lastName;
+        String fullName = firstName + lastName;
         if (employeeMap.keySet().size() == EMPLOYEE_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Закрыто");
         }
-        Employee employee = new Employee(firstName, lastName,salary,department);
+        Employee employee = new Employee(firstName, lastName, salary, department);
         if (employeeMap.containsKey(fullName)) {
             throw new EmployeeAlreadyAddedException("ТЫ уже работаешь");
         }
-
+        employeeMap.put(fullName, employee);
         return employee;
     }
 
 
     @Override
     public Employee containsEmployee(String firstName, String lastName) {
-        Employee employee =employeeMap.get(firstName+lastName);
-        if (!employeeMap.containsKey(firstName+lastName)) {
+        Employee employee = employeeMap.get(firstName + lastName);
+        if (!employeeMap.containsKey(firstName + lastName)) {
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
         return employee;
@@ -49,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee removeEmployee(String firstName, String lastName) {
         Employee employee = employeeMap.remove(firstName + lastName);
 
-        if (!employeeMap.containsKey(firstName+lastName)){
+        if (!employeeMap.containsKey(firstName + lastName)) {
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
 
@@ -57,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Collection <Employee> allEmploeyy() {
+    public Collection<Employee> allEmployee() {
         return employeeMap.values();
     }
 }

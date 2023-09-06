@@ -3,8 +3,6 @@ package sky.pro.homeworkcollection.service;
 import sky.pro.homeworkcollection.dto.Employee;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public interface EmployeeService {
 
@@ -15,5 +13,5 @@ public interface EmployeeService {
 
     Employee removeEmployee(String firstName, String lastName);
 
- Collection<Employee> allEmploeyy();
+ Collection<Employee> allEmployee();
 }

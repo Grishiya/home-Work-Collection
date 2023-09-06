@@ -5,11 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.homeworkcollection.dto.Employee;
-import sky.pro.homeworkcollection.exception.EmployeeStorageIsFullException;
 import sky.pro.homeworkcollection.service.EmployeeService;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -54,6 +52,6 @@ public class EmployeeController {
 
     @GetMapping
     public Collection<Employee> allEmployee() {
-        return employeeService.allEmploeyy();
+        return employeeService.allEmployee();
     }
 }

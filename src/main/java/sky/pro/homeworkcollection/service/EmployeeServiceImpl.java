@@ -1,5 +1,6 @@
 package sky.pro.homeworkcollection.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
@@ -25,11 +26,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeMap.keySet().size() == EMPLOYEE_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Закрыто");
         }
-        Employee employee = new Employee(firstName, lastName, salary, department);
+        Employee employee = new Employee(
+                StringUtils.capitalize(firstName),
+                StringUtils.capitalize(lastName),
+                salary,
+                department);
         if (employeeMap.containsKey(fullName)) {
             throw new EmployeeAlreadyAddedException("ТЫ уже работаешь");
         }
-        employeeMap.put(fullName, employee);
+        employeeMap.put(StringUtils.capitalize(fullName), employee);
         return employee;
     }
 

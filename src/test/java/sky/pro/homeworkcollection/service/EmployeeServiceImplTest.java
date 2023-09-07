@@ -12,16 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeServiceImplTest {
     EmployeeServiceImpl underTest = new EmployeeServiceImpl();
-    Employee employee = new Employee("Ivan", "IVANOV", 100500.0, 2);
+    Employee employee = new Employee("Ivan",
+            "IVANOV",
+            100500.0,
+            2);
 
     @Test
     void addEmployee__checkAdditionAnEmployee() {
-     Employee result=   underTest.addEmployee(
+        Employee result = underTest.addEmployee(
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getSalary(),
                 employee.getDepartment());
-   assertEquals(employee,result);
+        assertEquals(employee, result);
     }
 
     @Test
@@ -40,19 +43,29 @@ class EmployeeServiceImplTest {
                                 employee.getSalary(),
                                 employee.getDepartment())
                 );
-        assertEquals("ТЫ уже работаешь",exception.getMessage());
+        assertEquals("ТЫ уже работаешь", exception.getMessage());
     }
 
     @Test
     void containsEmployee() {
+        underTest.addEmployee(
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getSalary(),
+                employee.getDepartment());
+        Employee result = underTest.containsEmployee(
+                employee.getFirstName(),
+                employee.getLastName()
+        );
+        assertEquals(employee,result);
     }
 
     @Test
     void removeEmployee_employeeIsNotInMap_throwException() {
         final EmployeeNotFoundException exc = assertThrows(
-                        EmployeeNotFoundException.class,
-                        () -> underTest.removeEmployee("Ivan", "Ivanov"));
-        assertEquals("Такого сотрудника нет ", exc.getMessage());
+                EmployeeNotFoundException.class,
+                () -> underTest.removeEmployee("Ivan", "Ivanov"));
+        assertEquals("Такого сотрудника нет", exc.getMessage());
     }
 
     @Test

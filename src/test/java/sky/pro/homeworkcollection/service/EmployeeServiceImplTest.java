@@ -12,10 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceImplTest {
     EmployeeServiceImpl underTest = new EmployeeServiceImpl();
     Employee employee = new Employee("Ivan", "IVANOV", 100500.0, 2);
-   /* String firstName = "Ivan";
-    String lastName = "Ivanov";
-    int department = 2;
-    double salary = 23412;*/
+
+    @Test
+    void addEmployee__checkAdditionAnEmployee() {
+     Employee result=   underTest.addEmployee(
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getSalary(),
+                employee.getDepartment());
+   assertEquals(employee,result);
+    }
 
     @Test
     void containsEmployee() {
@@ -37,8 +43,7 @@ class EmployeeServiceImplTest {
                 employee.getSalary(),
                 employee.getDepartment());
 
-        Employee result;
-        result = underTest.removeEmployee(
+        Employee result = underTest.removeEmployee(
                 employee.getFirstName(),
                 employee.getLastName());
 

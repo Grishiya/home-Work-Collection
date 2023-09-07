@@ -26,8 +26,8 @@ public class EmployeeController {
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("salary") double salary,
                                 @RequestParam("department") int department) {
-        FullNameValidator.checkName(name,lastName);
-        return employeeService.addEmployee(name, lastName,salary,department);
+        FullNameValidator.checkName(name, lastName);
+        return employeeService.addEmployee(name, lastName, salary, department);
     }
 
     @GetMapping("/contains")
@@ -35,8 +35,8 @@ public class EmployeeController {
                                      @RequestParam("lastName") String lastName,
                                      @RequestParam("salary") double salary,
                                      @RequestParam("department") int department) {
-        FullNameValidator.checkName(name,lastName);
-       return employeeService.containsEmployee(name, lastName);
+        FullNameValidator.checkName(name, lastName);
+        return employeeService.containsEmployee(name, lastName);
     }
 
     @GetMapping("/remove")
@@ -44,8 +44,8 @@ public class EmployeeController {
                                    @RequestParam("lastName") String lastName,
                                    @RequestParam("salary") double salary,
                                    @RequestParam("department") int department) {
-        FullNameValidator.checkName(name,lastName);
-       return employeeService.removeEmployee(name, lastName);
+        FullNameValidator.checkName(name, lastName);
+        return employeeService.removeEmployee(name, lastName);
 
     }
 

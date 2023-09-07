@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sky.pro.homeworkcollection.dto.Employee;
+import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
 import sky.pro.homeworkcollection.exception.EmployeeNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,25 @@ class EmployeeServiceImplTest {
                 employee.getSalary(),
                 employee.getDepartment());
    assertEquals(employee,result);
+    }
+
+    @Test
+    void addEmployee_employeeAlreadyInMap_throwException() {
+        underTest.addEmployee(
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getSalary(),
+                employee.getDepartment());
+        final EmployeeAlreadyAddedException exception =
+                assertThrows(
+                        EmployeeAlreadyAddedException.class,
+                        () -> underTest.addEmployee(
+                                employee.getFirstName(),
+                                employee.getLastName(),
+                                employee.getSalary(),
+                                employee.getDepartment())
+                );
+        assertEquals("ТЫ уже работаешь",exception.getMessage());
     }
 
     @Test

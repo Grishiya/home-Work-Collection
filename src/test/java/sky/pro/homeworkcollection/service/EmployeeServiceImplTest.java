@@ -7,6 +7,9 @@ import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
 import sky.pro.homeworkcollection.exception.EmployeeNotFoundException;
 
+import java.util.Collection;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -18,7 +21,7 @@ class EmployeeServiceImplTest {
             2);
 
     @Test
-    void addEmployee__checkAdditionAnEmployee() {
+    void addEmployee_checkAdditionAnEmployee_addEmployeeReturned() {
         Employee result = underTest.addEmployee(
                 employee.getFirstName(),
                 employee.getLastName(),
@@ -47,7 +50,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    void containsEmployee() {
+    void containsEmployee_searchForAnEmployeeInMap_employeeContainsReturned() {
         underTest.addEmployee(
                 employee.getFirstName(),
                 employee.getLastName(),
@@ -57,15 +60,29 @@ class EmployeeServiceImplTest {
                 employee.getFirstName(),
                 employee.getLastName()
         );
-        assertEquals(employee,result);
+        assertEquals(employee, result);
+    }
+
+    @Test
+    void containsEmployee_employeeIsNotInMap_throwException() {
+        final EmployeeNotFoundException exception =
+                assertThrows(
+                        EmployeeNotFoundException.class,
+                        () -> underTest.containsEmployee(
+                                employee.getFirstName(),
+                                employee.getLastName()));
+        assertEquals("Такого сотрудника нет", exception.getMessage());
     }
 
     @Test
     void removeEmployee_employeeIsNotInMap_throwException() {
-        final EmployeeNotFoundException exc = assertThrows(
-                EmployeeNotFoundException.class,
-                () -> underTest.removeEmployee("Ivan", "Ivanov"));
-        assertEquals("Такого сотрудника нет", exc.getMessage());
+        final EmployeeNotFoundException exception =
+                assertThrows(
+                        EmployeeNotFoundException.class,
+                        () -> underTest.removeEmployee(
+                                employee.getFirstName(),
+                                employee.getLastName()));
+        assertEquals("Такого сотрудника нет", exception.getMessage());
     }
 
     @Test
@@ -85,6 +102,14 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    void allEmployee() {
+    void allEmployee_allEmployeeCheckInCollection_allEmployeeReturned() {
+        underTest.addEmployee(
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getSalary(),
+                employee.getDepartment());
+       Collection <Employee> result = underTest.allEmployee();
+        assertEquals(employee.toString(),result);
+        //Тест проваливается. как убрать у коллекции квадратные скобки при выводе в консоль?
     }
 }

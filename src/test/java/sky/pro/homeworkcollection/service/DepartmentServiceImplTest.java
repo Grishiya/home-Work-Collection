@@ -12,6 +12,7 @@ import sky.pro.homeworkcollection.exception.EmployeeNotFoundException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,10 +80,17 @@ class DepartmentServiceImplTest {
                 exception.getMessage());
     }
     @Test
-    void getAllEmployeeDepartment() {
+    void getAllEmployeeDepartment_employeeCheckGetAllEmployeeCollection_returnGetAllEmployeeDepartment() {
+        when(underTest.getAllEmployeeDepartment(1)).thenReturn(employees);
+        Collection<Employee> result = underTest.getAllEmployeeDepartment(1);
+        assertEquals(employees,result);
+        //подскажите как сделать так, чтобы он брал не всех сотрудников из коллекции,
+        //потому что, если у одного сотрудника отличается отдел от тестовых, то
+        //тест не проходит, он получает весь лист, а возвращает только по депортаменту.
     }
 
     @Test
     void getAllGropingByDepartment() {
+//      и тут тоже не понимаю(
     }
 }

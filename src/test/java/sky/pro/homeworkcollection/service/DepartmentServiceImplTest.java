@@ -58,14 +58,26 @@ class DepartmentServiceImplTest {
    EmployeeNotFoundException exception = assertThrows(
                 EmployeeNotFoundException.class,
                 () -> underTest.findMaxSalaryEmployee(department));
-        assertEquals("Такого сотрудника в отделе нет" +department,
+        assertEquals("Такого сотрудника в отделе нет " +department,
                 exception.getMessage());
     }
 
     @Test
-    void findMinSalaryEmployee() {
+    void findMinSalaryEmployee_employeeFind_returnEmployeeWithMinSalary() {
+        when(employeeService.allEmployee()).thenReturn(employees);
+        final Employee result = underTest.findMinSalaryEmployee(1);
+        assertEquals(max, result);
     }
-
+    @Test
+    void findMinSalaryEmployee_employeeNotFind_thrownEmployeeNotFoundException() {
+        int department = 1;
+        when(employeeService.allEmployee()).thenReturn(Collections.emptyList());
+        EmployeeNotFoundException exception = assertThrows(
+                EmployeeNotFoundException.class,
+                () -> underTest.findMinSalaryEmployee(department));
+        assertEquals("Такого сотрудника в отделе нет " + department,
+                exception.getMessage());
+    }
     @Test
     void getAllEmployeeDepartment() {
     }

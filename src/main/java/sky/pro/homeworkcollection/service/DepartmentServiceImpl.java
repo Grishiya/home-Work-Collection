@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return employeeService.allEmployee().stream()
                 .filter(e -> e.getDepartment() == department)
                 .max(Comparator.comparingDouble(e -> e.getSalary()))
-                .orElseThrow(() -> new EmployeeNotFoundException("Такого сотрудника в отделе нет" + department));
+                .orElseThrow(() -> new EmployeeNotFoundException("Такого сотрудника в отделе нет " + department));
     }
 
     @Override

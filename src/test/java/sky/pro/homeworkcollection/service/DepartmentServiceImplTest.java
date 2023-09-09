@@ -83,14 +83,15 @@ class DepartmentServiceImplTest {
     void getAllEmployeeDepartment_employeeCheckGetAllEmployeeCollection_returnGetAllEmployeeDepartment() {
         when(underTest.getAllEmployeeDepartment(1)).thenReturn(employees);
         Collection<Employee> result = underTest.getAllEmployeeDepartment(1);
-        assertEquals(employees,result);
-        //подскажите как сделать так, чтобы он брал не всех сотрудников из коллекции,
-        //потому что, если у одного сотрудника отличается отдел от тестовых, то
-        //тест не проходит, он получает весь лист, а возвращает только по депортаменту.
+        assertEquals(List.of(ivan,max),result);
+
     }
 
     @Test
     void getAllGropingByDepartment() {
+        when(employeeService.allEmployee()).thenReturn(employees);
+        Map<Integer, List<Employee>> result = underTest.getAllGropingByDepartment();
+        assertEquals(Map.of(List.of(ivan,max),List.of(grisha)),result);
 //      и тут тоже не понимаю(
     }
 }

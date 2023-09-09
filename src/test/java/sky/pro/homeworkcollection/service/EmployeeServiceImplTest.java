@@ -7,6 +7,7 @@ import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
 import sky.pro.homeworkcollection.exception.EmployeeNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +20,7 @@ class EmployeeServiceImplTest {
             "IVANOV",
             100500.0,
             2);
+    Collection<Employee> allEmployee = new ArrayList<>(List.of(employee));
 
     @Test
     void addEmployee_checkAdditionAnEmployee_addEmployeeReturned() {
@@ -109,7 +111,7 @@ class EmployeeServiceImplTest {
                 employee.getSalary(),
                 employee.getDepartment());
        Collection <Employee> result = underTest.allEmployee();
-         assertEquals(employee.toString(),result);
-        //Тест проваливается. как убрать у коллекции квадратные скобки при выводе в консоль?
+       assertEquals(List.of(employee),result);
+        //WHY!!!!
     }
 }

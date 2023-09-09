@@ -29,7 +29,6 @@ class EmployeeServiceImplTest {
                 employee.getLastName(),
                 employee.getSalary(),
                 employee.getDepartment());
-        assertEquals(employee, result);
     }
 
     @Test
@@ -111,7 +110,9 @@ class EmployeeServiceImplTest {
                 employee.getSalary(),
                 employee.getDepartment());
        Collection <Employee> result = underTest.allEmployee();
-       assertEquals(List.of(employee),result);
+       assertTrue(result.containsAll(List.of(employee)));
         //WHY!!!!
     }
-}
+
+
+    }

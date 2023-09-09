@@ -91,7 +91,7 @@ class DepartmentServiceImplTest {
     void getAllGropingByDepartment() {
         when(employeeService.allEmployee()).thenReturn(employees);
         Map<Integer, List<Employee>> result = underTest.getAllGropingByDepartment();
-        assertEquals(Map.of(List.of(ivan,max),List.of(grisha)),result);
-//      и тут тоже не понимаю(
+        assertEquals(Map.of(1,List.of(ivan,max),2,List.of(grisha)),result);
+
     }
 }

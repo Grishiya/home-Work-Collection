@@ -1,6 +1,7 @@
 package sky.pro.homeworkcollection.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import sky.pro.homeworkcollection.dto.Employee;
 import sky.pro.homeworkcollection.exception.EmployeeAlreadyAddedException;
@@ -22,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, double salary, int department) {
-        String fullName = firstName + lastName;
+        String fullName = fullName(firstName, lastName);
         if (employeeMap.keySet().size() == EMPLOYEE_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Закрыто");
         }
@@ -41,18 +42,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee containsEmployee(String firstName, String lastName) {
-        Employee employee = employeeMap.get(firstName + lastName);
+        Employee employee = employeeMap.get(fullName(firstName, lastName));
         if (!employeeMap.containsKey(firstName + lastName)) {
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
         return employee;
     }
 
+    private String fullName(String firstName, String lastname) {
+        return firstName + lastname;
+    }
+
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = employeeMap.remove(firstName + lastName);
+        Employee employee = employeeMap.remove(fullName(firstName, lastName));
 
-        if (!employeeMap.containsKey(firstName + lastName)) {
+        if (Objects.isNull(employee)) {
             throw new EmployeeNotFoundException("Такого сотрудника нет");
         }
 

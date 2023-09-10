@@ -6,7 +6,7 @@ import sky.pro.homeworkcollection.exception.IllegalNameException;
 public class FullNameValidator {
     public static void checkName(String... names) {
         for (String name : names) {
-            if (!StringUtils.isAlpha(name  )) {
+            if (!StringUtils.isAlpha(name)) {
                 throw new IllegalNameException("В имени могут быть только буквы");
 
             }
